@@ -1,24 +1,23 @@
-# README
+# Setup for local development on docker
+Please install [Docker](https://store.docker.com/search?type=edition&offering=community) on your local environment before setup.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```sh
+$ git clone git@github.com:nullnull/docker_rails_sample.git
+$ cd docker_rails_sample
+$ docker-compose build
+$ docker-compose run --rm rails bin/setup
+$ docker-compose up
+$ open http://localhost:3000
+```
 
-Things you may want to cover:
+To shutdown server and remove containers
 
-* Ruby version
+```sh
+$ docker-compose down
+```
 
-* System dependencies
+To restart server
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+$ docker-compose up
+```
