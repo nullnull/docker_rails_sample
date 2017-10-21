@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  mysql:
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-store:/var/lib/mysql
+  redis:
+    image: redis
+    volumes:
+      - redis-store:/data
+  rails:
+    build: .
+    command: /bin/sh -c "rm -rf /app/tmp/pids/server.pid && bundle exec foreman start"
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - '3000:3000'
+    tty: true
+    volumes:
+      - .:/app
+      - ~/.ssh:/root/.ssh
+      - bundler-store:/app/vendor/bundle
+      - node-modules-store:/app/node_modules
+      - assets-store:/app/public/assets
+      - assets-cache-store:/app/tmp/cache/assets
+
+volumes:
+  assets-cache-store:
+  assets-store:
+  bundler-store:
+  mysql-store:
+  node-modules-store:
+  redis-store:
