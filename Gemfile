@@ -40,7 +40,9 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+
+  # A PhantomJS driver for Capybara
+  gem 'poltergeist', '~> 1.14.0'
 
   # Manage Procfile-based applications
   gem 'foreman', require: false
