@@ -24,3 +24,5 @@ RUN mkdir /app
 WORKDIR /app
 
 EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
