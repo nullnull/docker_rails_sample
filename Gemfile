@@ -41,6 +41,9 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+
+  # Manage Procfile-based applications
+  gem 'foreman', require: false
 end
 
 group :development do
