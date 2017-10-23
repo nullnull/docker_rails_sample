@@ -25,4 +25,8 @@ WORKDIR /app
 
 EXPOSE 3000
 
+COPY . /app
+RUN bundle install
+RUN yarn install
+
 CMD ["rails", "server", "-b", "0.0.0.0"]

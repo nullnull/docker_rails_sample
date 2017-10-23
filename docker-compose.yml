@@ -23,16 +23,12 @@ services:
     volumes:
       - .:/app
       - ~/.ssh:/root/.ssh
-      - bundler-store:/app/vendor/bundle
-      - node-modules-store:/app/node_modules
       - assets-store:/app/public/assets
       - assets-cache-store:/app/tmp/cache/assets
 
 volumes:
   assets-cache-store:
   assets-store:
-  bundler-store:
   postgres-store:
     driver: local
-  node-modules-store:
   redis-store:
