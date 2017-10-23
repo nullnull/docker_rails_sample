@@ -1,14 +1,12 @@
 version: '3'
 
 services:
-  mysql:
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
-    image: mysql:5.6
+  postgres:
+    image: postgres:9.6
     ports:
-      - 3306:3306
+      - '5432:5432'
     volumes:
-      - mysql-store:/var/lib/mysql
+      - postgres-store:/var/lib/postgresql
   redis:
     image: redis
     volumes:
@@ -17,7 +15,7 @@ services:
     build: .
     command: /bin/sh -c "rm -rf /app/tmp/pids/server.pid && bundle exec foreman start"
     depends_on:
-      - mysql
+      - postgres
       - redis
     ports:
       - '3000:3000'
@@ -34,6 +32,7 @@ volumes:
   assets-cache-store:
   assets-store:
   bundler-store:
-  mysql-store:
+  postgres-store:
+    driver: local
   node-modules-store:
   redis-store:
