@@ -21,14 +21,17 @@ services:
       - '3000:3000'
     tty: true
     volumes:
-      - .:/app
+      - ./app:/app/app
+      - ./bin:/app/bin
+      - ./config:/app/config
+      - ./db:/app/db
+      - ./log:/app/log
+      - ./public:/app/public
+      - ./test:/app/test
+      - ./tmp:/app/tmp
       - ~/.ssh:/root/.ssh
-      - assets-store:/app/public/assets
-      - assets-cache-store:/app/tmp/cache/assets
 
 volumes:
-  assets-cache-store:
-  assets-store:
   postgres-store:
     driver: local
   redis-store:
