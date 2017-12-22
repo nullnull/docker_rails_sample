@@ -9,6 +9,12 @@ jobs:
           name: docker-compose build
           command: docker-compose build
       - run:
+          name: docker-compose up
+          command: docker-compose up -d
+      - run:
+          name: sleep for waiting launch db
+          command: sleep 3
+      - run:
           name: docker-compose run rails bin/setup
           command: docker-compose run --rm rails bin/setup
       - run:

@@ -13,7 +13,7 @@ services:
       - redis-store:/data
   rails:
     build: .
-    command: /bin/sh -c "rm -rf /app/tmp/pids/server.pid && bundle exec foreman start"
+    command: /bin/sh -c "rm -rf /app/tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p 3000"
     depends_on:
       - postgres
       - redis
@@ -30,6 +30,16 @@ services:
       - ./test:/app/test
       - ./tmp:/app/tmp
       - ~/.ssh:/root/.ssh
+  webpack:
+    build: .
+    command: bin/webpack-dev-server
+    # ports:
+      # - '3035:3035'
+    tty: true
+    volumes:
+      - ./app:/app/app
+      - ./bin:/app/bin
+      - ./config:/app/config
 
 volumes:
   postgres-store:
