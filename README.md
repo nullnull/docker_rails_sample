@@ -1,4 +1,6 @@
 # Docker + Rails5.1 + Webpacker + postgresql + CircleCI + Heroku
+[![CircleCI](https://circleci.com/gh/nullnull/docker_rails_sample.svg?style=svg)](https://circleci.com/gh/nullnull/docker_rails_sample)
+
 An easy template with the minimun you need to start to work with Rails 5.1
 
 ## Setup for local development
