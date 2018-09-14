@@ -3,6 +3,9 @@ jobs:
   build:
     machine:
       image: circleci/classic:edge
+    environment:
+      RAILS_ENV: test
+      NODE_ENV: test
     steps:
       - checkout
       - run:
