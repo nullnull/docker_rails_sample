@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'capybara/rails'
+require 'capybara-screenshot/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -89,5 +90,12 @@ RSpec.configure do |config|
     Capybara.javascript_driver = :chrome
     Capybara.reset_sessions!
     Capybara.app_host = "http://rails:#{Capybara.current_session.server.port}/"
+  end
+
+  Capybara::Screenshot.register_driver(:chrome) do |driver, path|
+    driver.browser.save_screenshot(path)
+  end
+   Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
+    "screenshot_#{example.description.tr(' ', '-')}"
   end
 end
