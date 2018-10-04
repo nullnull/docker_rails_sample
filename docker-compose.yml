@@ -35,7 +35,7 @@ services:
       - ./tmp:/app/tmp
       - ~/.ssh:/root/.ssh
   webpack:
-    build: .
+    image: docker_rails_sample_rails:latest
     command: bin/webpack-dev-server
     # ports:
       # - '3035:3035'
