@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sample-app
+  labels:
+    app: sample-app
+spec:
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: web
+          image: gcr.io/gke-sample-201809/rails-gke-sample
+          ports:
+            - containerPort: 3000
+          command: ["bundle", "exec", "rails", "server", "-p", "3000", "-b", "0.0.0.0"]
+          # command: ["bundle", "exec", "rake", "db:create"]
+          # command: ["bundle", "exec", "rake", "db:migrate"]
+          env:
+            - name: DATABASE_HOST
+              value: 127.0.0.1
+            - name: DATABASE_PORT
+              value: "3306"
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-db-credentials
+                  key: password
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: rails
+                  key: secret-key-base
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rails
+                  key: secret-key-base
+            - name: RAILS_ENV
+              value: production
+            - name: RACK_ENV
+              value: production
+            - name: RAILS_SERVE_STATIC_FILES
+              value: 'true'
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.11
+          command: ["/cloud_sql_proxy",
+                    "-instances=gke-sample-201809:asia-northeast1:rails-gke-sample-mysql=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials

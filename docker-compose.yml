@@ -1,12 +1,14 @@
 version: '3'
 
 services:
-  postgres:
-    image: postgres:9.6
+  mysql:
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    image: mysql:5.7
     ports:
-      - '5432:5432'
+      - 3306:3306
     volumes:
-      - postgres-store:/var/lib/postgresql
+      - mysql-store:/var/lib/mysql
   redis:
     image: redis
     volumes:
@@ -15,8 +17,10 @@ services:
     build: .
     command: /bin/sh -c "rm -rf /app/tmp/pids/server.pid && bin/rails server -b 0.0.0.0 -p 3000"
     depends_on:
-      - postgres
+      - mysql
       - redis
+    environment:
+      DATABASE_HOST: mysql
     ports:
       - '3000:3000'
     tty: true
@@ -42,6 +46,5 @@ services:
       - ./config:/app/config
 
 volumes:
-  postgres-store:
-    driver: local
+  mysql-store:
   redis-store:
