@@ -1,3 +1,6 @@
 log/
 tmp/
 public/packs/
+vendor/
+public/packs-test/
+coverage/

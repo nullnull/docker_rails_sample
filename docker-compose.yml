@@ -21,30 +21,37 @@ services:
       - redis
     environment:
       DATABASE_HOST: mysql
+      SELENIUM_URL: http://selenium-server:4444/wd/hub
     ports:
       - '3000:3000'
     tty: true
     volumes:
-      - ./app:/app/app
-      - ./bin:/app/bin
-      - ./config:/app/config
-      - ./db:/app/db
-      - ./log:/app/log
-      - ./public:/app/public
-      - ./test:/app/test
-      - ./tmp:/app/tmp
-      - ~/.ssh:/root/.ssh
+      - .:/app
+      - assets-store:/app/public/assets
+      - bundler-store:/app/vendor/bundle
+      - node-modules-store:/app/node_modules
   webpack:
-    build: .
+    image: docker_rails_sample_rails:latest
     command: bin/webpack-dev-server
     # ports:
       # - '3035:3035'
     tty: true
     volumes:
-      - ./app:/app/app
-      - ./bin:/app/bin
-      - ./config:/app/config
+      - .:/app
+      - assets-store:/app/public/assets
+      - bundler-store:/app/vendor/bundle
+      - node-modules-store:/app/node_modules
+  selenium-server:
+    image: selenium/standalone-chrome-debug:3.11.0-bismuth
+    ports:
+      - 4444:4444
+      - 5900:5900
+    volumes:
+      - /dev/shm:/dev/shm
 
 volumes:
   mysql-store:
   redis-store:
+  bundler-store:
+  node-modules-store:
+  assets-store:

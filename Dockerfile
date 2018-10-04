@@ -25,17 +25,7 @@ ENV APP_ROOT /app
 RUN mkdir $APP_ROOT
 WORKDIR $APP_ROOT
 
-ADD Gemfile ${APP_ROOT}/Gemfile
-ADD Gemfile.lock ${APP_ROOT}/Gemfile.lock
-RUN bundle install
-
-ADD package.json $APP_ROOT
-ADD yarn.lock $APP_ROOT
-RUN yarn install --frozen-lockfile
-
 COPY . $APP_ROOT
-
-RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
