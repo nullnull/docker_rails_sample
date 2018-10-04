@@ -60,15 +60,19 @@ jobs:
           name: test
           command: docker exec docker_rails_sample_rails_1 bundle exec rspec spec
       - run:
+          name: Copy artifacts
+          command: |
+            mkdir -p /tmp/artifacts/capybara
+            docker cp docker_rails_sample_rails_1:/app/tmp/capybara "/tmp/artifacts/"
+            mkdir -p /tmp/artifacts/coverage
+            docker cp docker_rails_sample_rails_1:/app/coverage "/tmp/artifacts/"
+          when: always
+      - store_artifacts:
+          path: /tmp/artifacts
+          when: always
+      - run:
           name: docker-compose down
           command: docker-compose down
-      - run:
-          name: docker save
-          command: |
-            mkdir -p ~/caches
-            if [[ ! -e ~/caches/images.tar ]]; then
-              docker save -o ~/caches/images.tar $(docker images --filter "dangling=false" --format "docker_rails_sample_rails:latest")
-            fi
 workflows:
   version: 2
   build:
