@@ -47,6 +47,7 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'capybara-screenshot'
   gem 'selenium-webdriver'
+  gem 'simplecov', require: false
 
   # Manage Procfile-based applications
   gem 'foreman', require: false
