@@ -14,33 +14,34 @@ jobs:
       - run:
           name: check docker-compose version
           command: docker-compose --version
-      - restore_cache:
-          keys:
-            - v3-test-{{ checksum "Dockerfile" }}
-          paths:
-            - ~/caches/images.tar
-      - run:
-          name: docker load or build
-          command: |
-            if [[ -e ~/caches/images.tar ]]; then
-              docker load -i ~/caches/images.tar
-            else
-              docker-compose -p docker_rails_sample build
-            fi
+      # NOTE If you want to use cache for faster testing, please comment out here.
+      # - restore_cache:
+      #     keys:
+      #       - v3-test-{{ checksum "Dockerfile" }}
+      #     paths:
+      #       - ~/caches/images.tar
+      # - run:
+      #     name: docker load or build
+      #     command: |
+      #       if [[ -e ~/caches/images.tar ]]; then
+      #         docker load -i ~/caches/images.tar
+      #       else
+      #         docker-compose -p docker_rails_sample build
+      #       fi
       - run:
           name: docker-compose build
           command: docker-compose -p docker_rails_sample build
-      - run:
-          name: docker save
-          command: |
-            mkdir -p ~/caches
-            if [[ ! -e ~/caches/images.tar ]]; then
-              docker save -o ~/caches/images.tar $(docker images --filter "dangling=false" --format "docker_rails_sample_rails:latest")
-            fi
-      - save_cache:
-          key: v3-test-{{ checksum "Dockerfile" }}
-          paths:
-            - ~/caches/images.tar
+      # - run:
+      #     name: docker save
+      #     command: |
+      #       mkdir -p ~/caches
+      #       if [[ ! -e ~/caches/images.tar ]]; then
+      #         docker save -o ~/caches/images.tar $(docker images --filter "dangling=false" --format "docker_rails_sample_rails:latest")
+      #       fi
+      # - save_cache:
+      #     key: v3-test-{{ checksum "Dockerfile" }}
+      #     paths:
+      #       - ~/caches/images.tar
       - run:
           name: docker-compose -p docker_rails_sample run --rm rails bundle install
           command: docker-compose -p docker_rails_sample run --rm rails bundle install
