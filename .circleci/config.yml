@@ -9,6 +9,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: update docker-compose
+          command: pip install docker-compose==1.22.0
+      - run:
+          name: check docker-compose version
+          command: docker-compose --version
+      - run:
           name: docker-compose build
           command: docker-compose build
       - run:
@@ -16,13 +22,13 @@ jobs:
           command: docker-compose up -d
       - run:
           name: sleep for waiting launch db
-          command: sleep 3
+          command: sleep 10
       - run:
-          name: docker-compose run rails bin/setup
-          command: docker-compose run --rm rails bin/setup
+          name: docker-compose exec rails bin/setup
+          command: docker-compose exec rails bin/setup
       - run:
           name: test
-          command: docker-compose run --rm rails bin/rails test test/*
+          command: docker-compose exec rails bin/rails test test/*
       - run:
           name: docker-compose down
           command: docker-compose down
