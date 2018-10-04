@@ -16,7 +16,7 @@ jobs:
           command: docker-compose --version
       - restore_cache:
           keys:
-            - v2-test-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}-{{ checksum "Dockerfile" }}
+            - v3-test-{{ checksum "Dockerfile" }}
           paths:
             - ~/caches/images.tar
       - run:
@@ -38,18 +38,21 @@ jobs:
               docker save -o ~/caches/images.tar $(docker images --filter "dangling=false" --format "docker_rails_sample_rails:latest")
             fi
       - save_cache:
-          key: v2-test-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}-{{ checksum "Dockerfile" }}
+          key: v3-test-{{ checksum "Dockerfile" }}
           paths:
             - ~/caches/images.tar
+      - run:
+          name: docker-compose -p docker_rails_sample run --rm rails bundle install
+          command: docker-compose -p docker_rails_sample run --rm rails bundle install
+      - run:
+          name: docker-compose -p docker_rails_sample run --rm webpack yarn install
+          command: docker-compose -p docker_rails_sample run --rm webpack yarn install
       - run:
           name: docker-compose up
           command: docker-compose -p docker_rails_sample up -d
       - run:
-          name: sleep for waiting launch db
-          command: sleep 10
-      - run:
-          name: docker ps
-          command: docker ps
+          name: docker exec docker_rails_sample_rails_1 bundle exec rake assets:precompile
+          command: docker exec docker_rails_sample_rails_1 bundle exec rake assets:precompile
       - run:
           name: docker exec docker_rails_sample_rails_1 bin/setup
           command: docker exec docker_rails_sample_rails_1 bin/setup

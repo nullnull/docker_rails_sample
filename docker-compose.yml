@@ -25,15 +25,10 @@ services:
       - '3000:3000'
     tty: true
     volumes:
-      - ./app:/app/app
-      - ./bin:/app/bin
-      - ./config:/app/config
-      - ./db:/app/db
-      - ./log:/app/log
-      - ./public:/app/public
-      - ./test:/app/test
-      - ./tmp:/app/tmp
-      - ~/.ssh:/root/.ssh
+      - .:/app
+      - assets-store:/app/public/assets
+      - bundler-store:/app/vendor/bundle
+      - node-modules-store:/app/node_modules
   webpack:
     image: docker_rails_sample_rails:latest
     command: bin/webpack-dev-server
@@ -41,10 +36,14 @@ services:
       # - '3035:3035'
     tty: true
     volumes:
-      - ./app:/app/app
-      - ./bin:/app/bin
-      - ./config:/app/config
+      - .:/app
+      - assets-store:/app/public/assets
+      - bundler-store:/app/vendor/bundle
+      - node-modules-store:/app/node_modules
 
 volumes:
   mysql-store:
   redis-store:
+  bundler-store:
+  node-modules-store:
+  assets-store:
