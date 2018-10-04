@@ -58,7 +58,7 @@ jobs:
           command: docker exec docker_rails_sample_rails_1 bin/setup
       - run:
           name: test
-          command: docker exec docker_rails_sample_rails_1 bin/rails test test/*
+          command: docker exec docker_rails_sample_rails_1 bundle exec rspec spec
       - run:
           name: docker-compose down
           command: docker-compose down
