@@ -20,6 +20,7 @@ services:
       - mysql
       - redis
     environment:
+      CC_TEST_REPORTER_ID:
       DATABASE_HOST: mysql
       SELENIUM_URL: http://selenium-server:4444/wd/hub
     ports:
