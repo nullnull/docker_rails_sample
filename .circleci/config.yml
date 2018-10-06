@@ -65,7 +65,7 @@ jobs:
             chmod +x ./cc-test-reporter
       - run:
           name: bundle exec rspec spec
-          command: docker exec docker_rails_sample_rails_1 bash -c './cc-test-reporter before-build && bundle exec rspec spec && ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $?'
+          command: docker exec docker_rails_sample_rails_1 bash -c './cc-test-reporter before-build && bundle exec rspec spec && ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $? && mkdir -p /app/tmp/capybara && mkdir -p /app/coverage'
       - run:
           name: Copy artifacts
           command: |
