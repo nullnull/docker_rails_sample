@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'bootsnap', require: false
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.8.0'
 
