@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.2.0'
 
 # mysql adaptor
 gem 'mysql2', '~> 0.4.4'
@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+gem 'bootsnap', require: false
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.8.0'
