@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'bootsnap', require: false
 
+gem 'apipie-rails'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.8.0'
 
