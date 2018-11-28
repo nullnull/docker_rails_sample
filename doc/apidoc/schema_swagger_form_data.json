@@ -6,25 +6,18 @@
     "version": "1.0",
     "x-copyright": null
   },
-  "basePath": "/api",
-  "consumes": [
-    "application/x-www-form-urlencoded",
-    "multipart/form-data"
-  ],
+  "basePath": "",
+  "consumes": ["application/x-www-form-urlencoded", "multipart/form-data"],
   "paths": {
     "/users": {
       "get": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
         ],
         "operationId": "get_users",
-        "parameters": [
-
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "All users",
@@ -41,9 +34,7 @@
     },
     "/users/{id}": {
       "get": {
-        "tags": [
-          "users"
-        ],
+        "tags": ["users"],
         "consumes": [
           "application/x-www-form-urlencoded",
           "multipart/form-data"
@@ -79,13 +70,9 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "name"
-      ]
+      "required": ["name"]
     }
   },
-  "tags": [
-
-  ],
+  "tags": [],
   "host": "localhost:3000"
 }
