@@ -57,6 +57,8 @@ group :development, :test do
   gem 'foreman', require: false
 
   gem 'pry-byebug'
+
+  gem 'committee'
 end
 
 group :development do
