@@ -1,16 +1,20 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: %i(show edit update destroy)
 
-  # GET /users
-  # GET /users.json
+  def_param_group :user do
+    property :name, String, desc: 'name'
+  end
+
+  api :GET, '/users'
+  returns array_of: :user, code: 200, desc: 'All users'
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
-  def show
-  end
+  api :GET, '/users/:id'
+  param :id, :number
+  returns :user, desc: 'The User'
+  def show; end
 
   # GET /users/new
   def new
