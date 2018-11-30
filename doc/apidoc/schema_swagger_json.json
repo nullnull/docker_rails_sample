@@ -10,6 +10,9 @@
   "consumes": [
     "application/json"
   ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
     "/users": {
       "get": {
@@ -35,7 +38,10 @@
                     "type": "object",
                     "properties": {
                       "name": {
-                        "type": "string",
+                        "type": [
+                          "string",
+                          "null"
+                        ],
                         "description": "name"
                       }
                     },
@@ -90,7 +96,10 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "description": "name"
         }
       },
