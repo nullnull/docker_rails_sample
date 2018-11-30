@@ -2,11 +2,15 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i(show edit update destroy)
 
   def_param_group :user do
-    property :name, String, desc: 'name'
+    property :name, String, desc: 'name', allow_nil: true
   end
 
   api :GET, '/users'
-  returns array_of: :user, code: 200, desc: 'All users'
+  returns :code => 200, :desc => "List of users" do
+    property :users, array_of: Hash do
+      param_group :user
+    end
+  end
   def index
     @users = User.all
   end

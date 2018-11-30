@@ -1,15 +1,14 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Myapp (params in:formData)",
+    "title": "Myapp (params in:body)",
     "description": "\n<p>Another API description</p>\n",
     "version": "1.0",
     "x-copyright": null
   },
   "basePath": "",
   "consumes": [
-    "application/x-www-form-urlencoded",
-    "multipart/form-data"
+    "application/json"
   ],
   "paths": {
     "/users": {
@@ -18,8 +17,7 @@
           "users"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_users",
         "parameters": [
@@ -64,8 +62,7 @@
           "users"
         ],
         "consumes": [
-          "application/x-www-form-urlencoded",
-          "multipart/form-data"
+          "application/json"
         ],
         "operationId": "get_users_id",
         "parameters": [
