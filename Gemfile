@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'bootsnap', require: false
 
+gem 'apipie-rails', :git => 'git://github.com/nullnull/apipie-rails.git', :branch => "customize"
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.8.0'
 
@@ -55,6 +57,8 @@ group :development, :test do
   gem 'foreman', require: false
 
   gem 'pry-byebug'
+
+  gem 'committee'
 end
 
 group :development do
